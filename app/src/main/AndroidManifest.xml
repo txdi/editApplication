@@ -33,6 +33,7 @@
         <activity android:name=".item.constraintlayout.ConstraintLayoutActivity" />
         <activity android:name=".item.motionlayout.MotionLayoutActivity" />
         <activity android:name=".item.coroutines.CoroutinesCheckActivity" />
+        <activity android:name=".item.flow.FlowCheckActivity" />
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import com.chensi.editapplication.item.constraintlayout.ConstraintLayoutActivity
 import com.chensi.editapplication.item.coroutines.CoroutinesCheckActivity
+import com.chensi.editapplication.item.flow.FlowCheckActivity
 import com.chensi.editapplication.item.motionlayout.MotionLayoutActivity
 import com.chensi.editapplication.net.Api
 import com.chensi.editapplication.net.RetrofitFactory
@@ -46,6 +47,9 @@ fun getMenu(): List<MenuData> {
         },
         MenuData("coroutines check", "coroutines") {
             it.startActivity(Intent(it, CoroutinesCheckActivity::class.java))
+        },
+        MenuData("kotlin flow", "kotlin_flow") {
+            it.startActivity(Intent(it, FlowCheckActivity::class.java))
         }
     )
 }
