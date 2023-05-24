@@ -15,10 +15,13 @@ import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flattenConcat
+import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
@@ -446,6 +449,48 @@ class FlowCheckActivity : AppCompatActivity() {
                     }.collect {
                         println(it)
                     }
+                }
+            })
+
+            add(MenuData("flow builder combine", "") {
+                MainScope().launch {
+                    val flowNumber = (1..6).asFlow().onEach { delay(100) }
+                    val flowChar =
+                        listOf("a", "b", "c", "d", "e", "f", "g").asFlow().onEach { delay(200) }
+
+                    flowNumber.combine(flowChar) { number, char ->
+                        "$number and $char"
+                    }.collect {
+                        println(it)
+                    }
+                }
+            })
+
+            add(MenuData("flow builder flattenConcat", "") {
+                MainScope().launch {
+                    val flowNumber = (1..6).asFlow().onEach { delay(100) }
+                    val flowChar =
+                        listOf("a", "b", "c", "d", "e", "f", "g").asFlow().onEach { delay(200) }
+
+                    flowOf(flowNumber, flowChar)
+                        .flattenConcat()
+                        .collect {
+                            println(it)
+                        }
+                }
+            })
+
+            add(MenuData("flow builder flattenMerge", "") {
+                MainScope().launch {
+                    val flowNumber = (1..6).asFlow().onEach { delay(100) }
+                    val flowChar =
+                        listOf("a", "b", "c", "d", "e", "f", "g").asFlow().onEach { delay(200) }
+
+                    flowOf(flowNumber, flowChar)
+                        .flattenMerge(2)
+                        .collect {
+                            println(it)
+                        }
                 }
             })
         })
