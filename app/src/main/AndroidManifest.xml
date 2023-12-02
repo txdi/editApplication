@@ -34,6 +34,7 @@
         <activity android:name=".item.motionlayout.MotionLayoutActivity" />
         <activity android:name=".item.coroutines.CoroutinesCheckActivity" />
         <activity android:name=".item.flow.FlowCheckActivity" />
+        <activity android:name=".item.recyclerview.RecyclerViewActivity" />
     </application>
 
 </manifest>
