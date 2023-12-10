@@ -35,6 +35,7 @@
         <activity android:name=".item.coroutines.CoroutinesCheckActivity" />
         <activity android:name=".item.flow.FlowCheckActivity" />
         <activity android:name=".item.recyclerview.RecyclerViewActivity" />
+        <activity android:name=".item.room_database.RoomDataBaseActivity" />
     </application>
 
 </manifest>
