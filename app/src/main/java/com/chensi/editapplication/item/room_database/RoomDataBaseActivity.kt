@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.SimpleTimeZone
 import java.util.UUID
+import kotlin.concurrent.thread
 
 class RoomDataBaseActivity : AppCompatActivity() {
 
@@ -24,34 +25,41 @@ class RoomDataBaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(mBinding.root)
 
-        db = Room.databaseBuilder(this, AppRoomDatabase::class.java, "dataUser").build()
+        db = Room.databaseBuilder(this.applicationContext, AppRoomDatabase::class.java, "dataUser")
+            .build()
         dao = db?.userDao()
 
         mBinding.tvAdd.setOnClickListener {
             val uuid = UUID.randomUUID()
-            dao?.addUser(
-                UserBean(
-                    uid = uuid.toString(),
-                    name = uuid.toString(),
-                    date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date()),
+            thread(start = true) {
+                dao?.addUser(
+                    UserBean(
+                        uid = uuid.toString(),
+                        name = uuid.toString(),
+                        date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date()),
+                    )
                 )
-            )
+            }
         }
 
         mBinding.tvReload.setOnClickListener {
-            val list = dao?.getAllData()
             mBinding.tvShow.text = ""
-            list?.let {
-                val stringBuilder = StringBuilder()
-                for (userBean in it) {
-                    stringBuilder.append(userBean.uid)
-                    stringBuilder.append("::")
-                    stringBuilder.append(userBean.name)
-                    stringBuilder.append("::")
-                    stringBuilder.append(userBean.date)
-                    stringBuilder.append("\n")
+            thread(start = true) {
+                val list = dao?.getAllData()
+                list?.let {
+                    val stringBuilder = StringBuilder()
+                    for (userBean in it) {
+                        stringBuilder.append(userBean.uid)
+                        stringBuilder.append("::")
+                        stringBuilder.append(userBean.name)
+                        stringBuilder.append("::")
+                        stringBuilder.append(userBean.date)
+                        stringBuilder.append("\n")
+                    }
+                    mBinding.tvShow.post {
+                        mBinding.tvShow.text = stringBuilder.toString()
+                    }
                 }
-                mBinding.tvShow.text = stringBuilder.toString()
             }
         }
 
