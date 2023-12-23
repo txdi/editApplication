@@ -36,6 +36,7 @@
         <activity android:name=".item.flow.FlowCheckActivity" />
         <activity android:name=".item.recyclerview.RecyclerViewActivity" />
         <activity android:name=".item.room_database.RoomDataBaseActivity" />
+        <activity android:name=".item.custom_view.CustomShowActivity" />
     </application>
 
 </manifest>

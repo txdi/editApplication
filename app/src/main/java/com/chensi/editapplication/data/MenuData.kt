@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.Log
 import com.chensi.editapplication.item.constraintlayout.ConstraintLayoutActivity
 import com.chensi.editapplication.item.coroutines.CoroutinesCheckActivity
+import com.chensi.editapplication.item.custom_view.CustomShowActivity
 import com.chensi.editapplication.item.flow.FlowCheckActivity
 import com.chensi.editapplication.item.motionlayout.MotionLayoutActivity
 import com.chensi.editapplication.item.recyclerview.RecyclerViewActivity
@@ -58,6 +59,9 @@ fun getMenu(): List<MenuData> {
         },
         MenuData("room database", "room_database") {
             it.startActivity(Intent(it, RoomDataBaseActivity::class.java))
+        },
+        MenuData("custom view show", "custom_view_show") {
+            it.startActivity(Intent(it, CustomShowActivity::class.java))
         }
     )
 }
